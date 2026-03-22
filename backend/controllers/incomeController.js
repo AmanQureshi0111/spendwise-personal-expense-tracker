@@ -1,6 +1,11 @@
 import incomeModel from '../models/incomeModel.js'
 import XLSX from 'xlsx'
 import getDateRange from '../utils/dateFilter.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 //add income
 export async function addIncome(req,res){
@@ -18,7 +23,7 @@ export async function addIncome(req,res){
             description,
             amount,
             category,
-            data:new Date(date)
+            date:new Date(date)
         });
         await newIncome.save();
         res.json({
@@ -55,7 +60,7 @@ export async function updateIncome(req,res){
     const {description,amount} = req.body;
     try{
         const updatedIncome=await incomeModel.findOneAndUpdate(
-            {_id:od,userId},
+            {_id:id,userId},
             {description,amount},
             {new:true}
         );
@@ -117,8 +122,10 @@ export async function downloadIncomeExcel(req,res){
 
         const worksheet = XLSX.utils.json_to_sheet(plainData);
         const workbook=XLSX.utils.book_new();
-        XLSX.writeFile(workbook,"income_details.xlsx");
-        res.download("income_details.xlsx");
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Income");
+        const filePath = path.join(__dirname, "..", "income_details.xlsx");
+        XLSX.writeFile(workbook, filePath);
+        res.download(filePath, "income_details.xlsx");
     }catch(err){
         console.log(err);
         res.status(500).json({
@@ -131,7 +138,7 @@ export async function downloadIncomeExcel(req,res){
 // to get income overview
 export async function getIncomeOverview(req,res){
     try{
-        const userId=user.user._id;
+        const userId=req.user._id;
         const {range="monthly"}=req.query;
         const {start,end}=getDateRange(range);
         const incomes = await incomeModel.find({
