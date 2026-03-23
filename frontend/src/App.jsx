@@ -24,7 +24,7 @@ const App = () => {
   }
   return (
     <Routes>
-      <Route element={<Layout/>}>
+      <Route element={<Layout user={user} onLogout={handleLogout} />}>
         <Route path="/" element={<Dashboard/>} />
       </Route>
     </Routes>

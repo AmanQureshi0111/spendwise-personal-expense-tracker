@@ -82,7 +82,7 @@ const Navbar = ({user:propUser,onLogout}) => {
                                 <div className={navbarStyles.statusIndicator}></div>
                             </div>
                             <div className={navbarStyles.userTextContainer}>
-                                <p className={navbarStyles.username}>{user?.name || "User"}</p>
+                                <p className={navbarStyles.userName}>{user?.name || "User"}</p>
                                 <p className={navbarStyles.userEmail}>
                                     {user?.email || "user@spendwisetracker.com"}
                                 </p>
