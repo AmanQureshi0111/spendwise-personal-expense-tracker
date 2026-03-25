@@ -6,6 +6,7 @@ import { ChevronDown, LogOut, User } from 'lucide-react';
 import axios from 'axios';
 
 const BASE_URL="http://localhost:4000/api";
+const getStoredToken = () => localStorage.getItem("token") || sessionStorage.getItem("token");
 
 const Navbar = ({user:propUser,onLogout}) => {
     const navigate =useNavigate();
@@ -21,7 +22,7 @@ const Navbar = ({user:propUser,onLogout}) => {
     useEffect(()=>{
         const fetchUserData=async () => {
             try{
-                const token=localStorage.getItem("token");
+                const token=getStoredToken();
                 if(!token){
                     return;
                 }

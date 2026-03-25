@@ -3,10 +3,38 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import Layout from './components/Layout.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import Login from './components/Login.jsx';
+import Signup from './components/Signup.jsx';
 
+const API_URL = "http://localhost:4000";
+
+// to get transaction from localstorage
+const getTransactionsFromStorage = () => {
+  const saved = localStorage.getItem("transactions");
+  return saved ? JSON.parse(saved) : [];
+}
+// to protect the routes
+const ProtectedRoute = ({ user, children }) => {
+  const localToken = localStorage.getItem("token");
+  const sessionToken = sessionStorage.getItem("token");
+  const hasToken = localToken || sessionToken;
+  if (!user || !hasToken) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+}
+// to scroll to top when page gets reload or new page is visited
+const ScrollToTop = () => {
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, { location.pathname });
+  return null;
+}
 const App = () => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
+  const [transactions, setTransactions] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   // to save the token
@@ -41,6 +69,65 @@ const App = () => {
       console.error("clearAuth error:", err);
     }
   }
+  // to update user data both in state and storage
+  const updateUserData = (updatedUser) => {
+    setUser(updatedUser);
+    const localToken = localStorage.getItem("token");
+    const sessionToken = sessionStorage.getItem("token");
+    if (localToken) {
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+    } else if (sessionToken) {
+      sessionStorage.setItem("user", JSON.stringify(updatedUser));
+    }
+  }
+  // try to load user with token when mounted
+  useEffect(() => {
+    (async () => {
+      try {
+        const localUserRaw = localStorage.getItem("user");
+        const sessionUserRaw = sessionStorage.getItem("user");
+        const localToken = localStorage.getItem("token");
+        const sessionToken = sessionStorage.getItem("token");
+
+        const storedUser = localUserRaw ? JSON.parse(localUserRaw) : sessionUserRaw ? JSON.parse(sessionUserRaw) : null;
+        const storedToken = localToken || sessionToken || null;
+        const tokenFromLocal = !!localToken;
+        if (storedUser) {
+          setUser(storedUser);
+          setToken(storedToken);
+          setIsLoading(false);
+          return;
+        }
+        if (storedToken) {
+          try {
+            const res = await axios.get(`${API_URL}/api/user/me`, {
+              header: { Authorization: `Bearer ${storedToken}` }
+            });
+            const profile = res.data;
+            persistAuth(profile, storedToken, tokenFromLocal);
+          } catch (fetchErr) {
+            console.warn("Could not fetch profile with the stored token", fetchErr);
+            clearAuth();
+          }
+        }
+      } catch (err) {
+        console.error("error bootstrapping auth:", err);
+      } finally {
+        setIsLoading(false);
+        try {
+          setTransactions(getTransactionsFromStorage());
+        } catch (txErr) {
+          console.error("Error loading transactions:", txErr);
+        }
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("transaction", JSON.stringify)
+    }
+  })
   const handleLogin = (userData, remember = false, tokenFromApi = null) => {
     persistAuth(userData, tokenFromApi, remember);
     navigate("/");
@@ -49,9 +136,14 @@ const App = () => {
     clearAuth();
     navigate("/Login");
   }
+  const handleSignup = (userData, remember = false, tokenFromApi = null) => {
+    persistAuth(userData, tokenFromApi, remember);
+    navigate("/");
+  }
   return (
     <Routes>
       <Route path="/login" element={<Login onLogin={handleLogin} />} />
+      <Route path="/signup" element={<Signup onSignup={handleSignup} />} />
       <Route element={<Layout user={user} onLogout={handleLogout} />}>
         <Route path="/" element={<Dashboard />} />
       </Route>

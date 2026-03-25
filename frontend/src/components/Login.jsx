@@ -42,7 +42,7 @@ const Login = ({ onLogin, API_URL = "http://localhost:4000" }) => {
                 { headers: { "Content-Type": "application/json" } }
             );
             const data = res.data || {};
-            const token = res.token || null;
+            const token = data.token || null;
             // to derive user profile
             let profile = data.user ?? null;
             if (!profile) {
@@ -164,7 +164,7 @@ const Login = ({ onLogin, API_URL = "http://localhost:4000" }) => {
                                 </button>
                             </div>
                         </div>
-                        <div className={loginStyles.checkboxContainer}>
+                        <div className={`${loginStyles.checkboxContainer}`}>
                             <input
                                 type="checkbox"
                                 id="remember"

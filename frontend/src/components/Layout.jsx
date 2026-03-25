@@ -19,6 +19,7 @@ const CATEGORY_ICONS = {
 };
 
 const API_BASE = "http://localhost:4000/api";
+const getStoredToken = () => localStorage.getItem("token") || sessionStorage.getItem("token");
 
 const filterTransactions = (transactions, frame) => {
     const now = new Date();
@@ -63,7 +64,7 @@ const Layout = ({ onLogout, user }) => {
     const fetchTransactions = async () => {
         try {
             setLoading(true);
-            const token = localStorage.getItem("token");
+            const token = getStoredToken();
             const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
             const [incomeRes, expenseRes] = await Promise.all([
@@ -106,7 +107,7 @@ const Layout = ({ onLogout, user }) => {
     // to add transaction either income or expense
     const addTransaction = async (transaction) => {
         try {
-            const token = localStorage.getItem("token");
+            const token = getStoredToken();
             const headers = token ? { Authorization: `Bearer ${token}` } : {};
             const endpoint =
                 transaction.type === "income" ? "income/add" : "expense/add";
@@ -124,7 +125,7 @@ const Layout = ({ onLogout, user }) => {
     // to update any transaction
     const editTransaction = async (id, transaction) => {
         try {
-            const token = localStorage.getItem("token");
+            const token = getStoredToken();
             const headers = token ? { Authorization: `Bearer ${token}` } : {};
             const endpoint =
                 transaction.type === "income" ? "income/update" : "expense/update";
@@ -144,7 +145,7 @@ const Layout = ({ onLogout, user }) => {
     // to delete a transaction
     const deleteTransaction = async (id, type) => {
         try {
-            const token = localStorage.getItem("token");
+            const token = getStoredToken();
             const headers = token ? { Authorization: `Bearer ${token}` } : {};
             const endpoint = type === "income" ? "income/delete" : "expense/delete";
             await axios.delete(`${API_BASE}/${endpoint}/${id}`, { headers });
