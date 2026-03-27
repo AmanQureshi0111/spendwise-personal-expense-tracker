@@ -1,3 +1,4 @@
+# Live - https://rebrand.ly/spendwise
 # SpendWise — Personal Expense Tracker
 
 SpendWise is a full‑stack personal finance tracker that helps users record income and expenses, visualize spending trends, and manage budgets in a clean, modern interface.
