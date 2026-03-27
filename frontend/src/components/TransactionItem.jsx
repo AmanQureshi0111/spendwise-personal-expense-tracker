@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { transactionItemStyles } from '../assets/dummyStyles';
 import { colorClasses } from '../assets/color';
+import { DollarSign, Edit, Save, Trash2, X } from 'lucide-react';
 const TransactionItem = ({
     transaction,
     isEditing,
@@ -116,7 +117,7 @@ const TransactionItem = ({
                         <span
                             className={transactionItemStyles.amountText(amountClass, classes)}
                         >
-                            {sign}$
+                            {sign}₹
                             {Number(transaction.amount).toLocaleString("en-US", {
                                 maximumFractionDigits: 2,
                                 minimumFractionDigits: 2,

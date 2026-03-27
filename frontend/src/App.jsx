@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Route, Routes, useNavigate, Navigate, useLocation } from 'react-router-dom';
 import Layout from './components/Layout.jsx';
 import Dashboard from './pages/Dashboard.jsx';
@@ -6,6 +6,8 @@ import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
 import axios from 'axios';
 import Income from './pages/Income.jsx';
+import Expense from './pages/Expense.jsx';
+import Profile from './pages/Profile.jsx';
 
 const API_URL = "http://localhost:4000";
 
@@ -34,7 +36,6 @@ const ScrollToTop = () => {
 }
 const App = () => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -54,7 +55,6 @@ const App = () => {
         localStorage.removeItem("token");
       }
       setUser(userObj || null);
-      setToken(tokenStr || null);
     } catch (err) {
       console.error("persistAuth error:", err);
     }
@@ -96,7 +96,6 @@ const App = () => {
         const tokenFromLocal = !!localToken;
         if (storedUser) {
           setUser(storedUser);
-          setToken(storedToken);
           setIsLoading(false);
           return;
         }
@@ -185,7 +184,7 @@ const App = () => {
               refreshTransactions={refreshTransactions}
             />
           </ProtectedRoute>
-        }>
+        } >
           <Route path="/"
             element={<Dashboard />}
             transactions={transactions}
@@ -203,8 +202,34 @@ const App = () => {
               refreshTransaction={refreshTransactions}
             />
           } />
+          <Route
+            path="/expense" element={
+              <Expense
+                transactions={transactions}
+                addTransaction={addTransaction}
+                editTransaction={editTransaction}
+                deleteTransaction={deleteTransaction}
+                refreshTransaction={refreshTransactions}
+              />
+            } />
+
+          <Route
+            path="/profile"
+            element={
+              <Profile user={user}
+                onUpdateProfile={updateUserData}
+                onLogout={handleLogout}
+              />
+            }
+          />
         </Route>
-      </Routes>
+        <Route
+          path="*"
+          element={<Navigate to={user ? "/" : "/login"} replace />}
+        >
+
+        </Route>
+      </Routes >
     </>
   )
 }

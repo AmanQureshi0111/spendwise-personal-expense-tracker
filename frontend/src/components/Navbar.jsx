@@ -19,7 +19,7 @@ const Navbar = ({user:propUser,onLogout}) => {
         email:""
     };
 
-    useEffect(()=>{
+    useEffect(()=>{ 
         const fetchUserData=async () => {
             try{
                 const token=getStoredToken();
@@ -41,6 +41,7 @@ const Navbar = ({user:propUser,onLogout}) => {
             fetchUserData();
         }
     },[propUser]);
+
     const handleLogout = () => {
         setMenuOpen(false);
         localStorage.removeItem("token");

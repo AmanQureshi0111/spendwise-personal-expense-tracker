@@ -18,6 +18,9 @@ import {
     TrendingDown,
     TrendingUp,
     Wallet,
+    ArrowDown,
+    PiggyBank,
+    DollarSign,
     ChevronDown,
     ChevronUp,
     ShoppingCart,
@@ -315,10 +318,11 @@ const Dashboard = () => {
         } finally {
             setLoading(false);
         }
-    }
+    };
     useEffect(() => {
         fetchDashboardOverview();
-    }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [timeFrame]);
 
     // add /edit or //delete
     const handleAddTransaction = async () => {
@@ -396,14 +400,14 @@ const Dashboard = () => {
                             </div>
                         }
                         label="Total Balance"
-                        value={`$${Math.round(displayIncome - displayExpenses).toLocaleString()}`}
+                        value={`₹${Math.round(displayIncome - displayExpenses).toLocaleString()}`}
                         additionalContent={
                             <div className="flex items-center gap-2 mt-2 text-sm">
                                 <span className={dashboardStyles.balanceBadge}>
-                                    +${Math.round(displayIncome).toLocaleString()}
+                                    +₹{Math.round(displayIncome).toLocaleString()}
                                 </span>
                                 <span className={dashboardStyles.expenseBadge}>
-                                    -${Math.round(displayExpenses).toLocaleString}
+                                    -₹{Math.round(displayExpenses).toLocaleString()}
                                 </span>
                             </div>
                         }
@@ -415,7 +419,7 @@ const Dashboard = () => {
                             </div>
                         }
                         label={`${timeFrameRange.label} Expenses`}
-                        value={`$${Math.round(displayExpenses).toLocaleString()}`}
+                        value={`₹${Math.round(displayExpenses).toLocaleString()}`}
                         additionalContent={
                             <div className={`mt-2 text-xs flex items-center gap-1 ${expenseChange >= 0 ? trendStyles.positive : trendStyles.negative
                                 }`}>
@@ -439,7 +443,7 @@ const Dashboard = () => {
                             </div>
                         }
                         label={`${timeFrameRange.label} Savings`}
-                        value={`$${Math.round(displaySavings).toLocaleString()}`}
+                        value={`₹${Math.round(displaySavings).toLocaleString()}`}
                         additionalContent={
                             <div className="mt-2 text-xs text-cyan-600 flex items-center gap-2">
                                 <div className="flex items-center gap-1">
@@ -499,7 +503,7 @@ const Dashboard = () => {
                                 }
                                 labelLine={false}
                             >
-                                {financialOverviewData.map((entry, index) => (
+                                {financialOverviewData.map((_, index) => (
                                     <Cell
                                         key={`cell-${index}`}
                                         fill={COLORS[index % COLORS.length]}
@@ -509,7 +513,7 @@ const Dashboard = () => {
                                 ))}
                             </Pie>
                             <Tooltip
-                                formatter={(value) => [`$${Math.round(value).toLocaleString()}`, "Amount"]}
+                                formatter={(value) => [`₹${Math.round(value).toLocaleString()}`, "Amount"]}
                                 contentStyle={dashboardStyles.tooltipContent}
                                 itemStyle={dashboardStyles.tooltipItem}
                             />
@@ -557,7 +561,7 @@ const Dashboard = () => {
                                         </div>
                                     </div>
                                     <div className={dashboardStyles.transactionAmount}>
-                                        <p className={dashboardStyles.incomeAmount}>+${Math.abs(transaction.amount).toLocaleString()}</p>
+                                        <p className={dashboardStyles.incomeAmount}>+₹{Math.abs(transaction.amount).toLocaleString()}</p>
                                         <p className={dashboardStyles.transactionDate}>{new Date(transaction.date).toLocaleDateString()}</p>
                                     </div>
                                 </div>
@@ -623,7 +627,7 @@ const Dashboard = () => {
                                         </div>
                                     </div>
                                     <div className={dashboardStyles.transactionAmount}>
-                                        <p className={dashboardStyles.expenseAmount}>-${Math.abs(transaction.amount).toLocaleString()}</p>
+                                        <p className={dashboardStyles.expenseAmount}>-₹{Math.abs(transaction.amount).toLocaleString()}</p>
                                         <p className={dashboardStyles.transactionDate}>{new Date(transaction.date).toLocaleDateString()}</p>
                                     </div>
                                 </div>

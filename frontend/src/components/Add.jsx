@@ -1,4 +1,4 @@
-import React from "react";
+import { X } from "lucide-react";
 import { modalStyles } from '../assets/dummyStyles';
 
 const AddTransactionModal = ({
@@ -31,7 +31,7 @@ const AddTransactionModal = ({
                     </h3>
                     <button
                         onClick={() => setShowModal(false)}
-                        className={modalStyles.closButton}
+                        className={modalStyles.closeButton}
                     >
                         <X size={24} />
                     </button>
@@ -126,7 +126,7 @@ const AddTransactionModal = ({
                             <input type="date"
                                 value={newTransaction.date}
                                 onChange={(e) =>
-                                    newTransaction((prev) => ({
+                                    setNewTransaction((prev) => ({
                                         ...prev,
                                         date: e.target.value,
                                     }))

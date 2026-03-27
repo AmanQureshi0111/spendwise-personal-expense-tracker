@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import { signupStyles } from '../assets/dummyStyles';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -46,8 +46,8 @@ const Signup = ({ API_URL = "http://localhost:4000", onSignup }) => {
         }
         if (!password) {
             newErrors.password = "Password is required";
-        } else if (password.length < 6) {
-            newErrors.password = "Password must be at least 6 characters";
+        } else if (password.length < 8) {
+            newErrors.password = "Password must be at least 8 characters";
         }
 
         setErrors(newErrors);
@@ -190,10 +190,11 @@ const Signup = ({ API_URL = "http://localhost:4000", onSignup }) => {
                                     id="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className={`${signupStyles.passwordInput} ${errors.name ? "border-red-300" :
+                                    className={`${signupStyles.passwordInput} ${errors.password ? "border-red-300" :
                                         "border-gray-200"
                                         }`}
                                     placeholder="********"
+                                    minLength={8}
                                     required
                                 />
                                 <button

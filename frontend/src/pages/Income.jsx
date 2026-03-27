@@ -98,11 +98,11 @@ const IncomeChart = ({ chartData, timeFrame, timeFrameRange }) => (
                         tickLine={false}
                         tick={{ fill: "#6b7280", fontSize: 12 }}
                         width={50}
-                        tickFormatter={(value) => `$${value.toLocaleString()}`}
+                        tickFormatter={(value) => `₹${value.toLocaleString()}`}
                     />
                     <Tooltip
                         formatter={(value) => [
-                            `$${Math.round(value).toLocaleString()}`,
+                            `₹${Math.round(value).toLocaleString()}`,
                             "Income",
                         ]}
                         contentStyle={styles.tooltipContent}
@@ -113,7 +113,7 @@ const IncomeChart = ({ chartData, timeFrame, timeFrameRange }) => (
                         radius={[6, 6, 0, 0]}
                         barSize={20}
                     >
-                        {chartData.map((entry, index) => (
+                        {chartData.map((_, index) => (
                             <Cell
                                 key={`cell-${index}`}
                                 fill={INCOME_COLORS[index % INCOME_COLORS.length]}
@@ -200,7 +200,7 @@ const Income = () => {
     });
 
     const getAuthHeaders = useCallback(() => {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("token") || sessionStorage.getItem("token");
         return token ? { Authorization: `Bearer ${token}` } : {};
     }, []);
 
@@ -526,7 +526,7 @@ const Income = () => {
                         </div>
                     }
                     label="Total Income"
-                    value={`$${Number(totalIncome || 0).toLocaleString()}`}
+                    value={`₹${Number(totalIncome || 0).toLocaleString()}`}
                     additionalContent={
                         <div className="mt-2 text-xs text-gray-500 flex items-center">
                             <Calendar className="w-3 h-3 mr-1" /> {timeFrameRange.label}
@@ -543,7 +543,7 @@ const Income = () => {
                         </div>
                     }
                     label="Average Income"
-                    value={`$${Number(averageIncome || 0).toLocaleString()}`}
+                    value={`₹${Number(averageIncome || 0).toLocaleString()}`}
                     additionalContent={
                         <div className="mt-2 text-xs text-gray-500 flex items-center">
                             <Calendar className="w-3 h-3 mr-1" /> {transactionsCount}{" "}

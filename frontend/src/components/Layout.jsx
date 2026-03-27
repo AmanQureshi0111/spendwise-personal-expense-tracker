@@ -295,7 +295,7 @@ const Layout = ({ onLogout, user }) => {
                             <div>
                                 <p className={styles.statCards.cardTitle}>Total Balance</p>
                                 <p className={styles.statCards.cardValue}>
-                                    ${stats.allTimeSavings.toLocaleString("en-US", {
+                                    ₹{stats.allTimeSavings.toLocaleString("en-US", {
                                         maximumFractionDigits: 2,
                                     })}
                                 </p>
@@ -306,7 +306,7 @@ const Layout = ({ onLogout, user }) => {
                         </div>
                         <p className={styles.statCards.cardFooter}>
                             <span className="text-teal-600 font-medium">
-                                +${stats.last30DaysSavings.toLocaleString()}
+                                +₹{stats.last30DaysSavings.toLocaleString()}
                             </span>{" "}
                             this month
                         </p>
@@ -317,7 +317,7 @@ const Layout = ({ onLogout, user }) => {
                             <div>
                                 <p className={styles.statCards.cardTitle}>Monthly Income</p>
                                 <p className={styles.statCards.cardValue}>
-                                    ${stats.allTimeSavings.toLocaleString("en-US", {
+                                    ₹{stats.allTimeSavings.toLocaleString("en-US", {
                                         maximumFractionDigits: 2,
                                     })}
                                 </p>
@@ -338,7 +338,7 @@ const Layout = ({ onLogout, user }) => {
                             <div>
                                 <p className={styles.statCards.cardTitle}>Monthly Expense</p>
                                 <p className={styles.statCards.cardValue}>
-                                    ${stats.last30DaysExpenses.toLocaleString("en-US", {
+                                    ₹{stats.last30DaysExpenses.toLocaleString("en-US", {
                                         maximumFractionDigits: 2,
                                     })}
                                 </p>
@@ -428,7 +428,7 @@ const Layout = ({ onLogout, user }) => {
                                                 </div>
                                             </div>
                                             <span className={styles.colors.transaction.text(type)}>
-                                                {type === "income" ? "+" : "-"}${Number(amount)}
+                                                {type === "income" ? "+" : "-"}₹{Number(amount)}
                                             </span>
                                         </div>
                                     )
@@ -480,7 +480,7 @@ const Layout = ({ onLogout, user }) => {
                                                 <span className={styles.categories.categoryName}>{category}</span>
                                             </div>
                                             <span className={styles.categories.categoryAmount}>
-                                                ${amount}
+                                                ₹{amount}
                                             </span>
                                         </div>
                                     ))}
@@ -492,7 +492,7 @@ const Layout = ({ onLogout, user }) => {
                                                 Total Income
                                             </p>
                                             <p className={styles.categories.summaryValue}>
-                                                ${stats.allTimeIncome.toLocaleString()}
+                                                ₹{stats.allTimeIncome.toLocaleString()}
                                             </p>
                                         </div>
                                         <div className={styles.categories.summaryExpenseCard}>
@@ -500,7 +500,7 @@ const Layout = ({ onLogout, user }) => {
                                                 Total Expense
                                             </p>
                                             <p className={styles.categories.summaryValue}>
-                                                ${stats.allTimeExpenses.toLocaleString()}
+                                                ₹{stats.allTimeExpenses.toLocaleString()}
                                             </p>
                                         </div>
                                     </div>
