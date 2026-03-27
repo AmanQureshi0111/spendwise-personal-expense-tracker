@@ -54,41 +54,6 @@ spendwise-personal-expense-tracker/
 └─ README.md
 ```
 
----
-
-## Getting Started
-
-### Backend
-```
-cd backend
-npm install
-npm start
-```
-
-Server runs on: **http://localhost:4000**
-
-### Frontend
-```
-cd frontend
-npm install
-npm run dev
-```
-
-Frontend runs on: **http://localhost:5173**
-
----
-
-## Environment Variables
-
-Create a `.env` file in `/backend` and add:
-
-```
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-```
-
----
-
 ## Future Work
 
 - **NLP-based spending summaries**  
