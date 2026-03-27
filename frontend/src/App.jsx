@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard.jsx';
 import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
 import axios from 'axios';
+import Income from './pages/Income.jsx';
 
 const API_URL = "http://localhost:4000";
 
@@ -193,6 +194,15 @@ const App = () => {
             deleteTransaction={deleteTransaction}
             refreshTransaction={refreshTransactions}
           />
+          <Route path="/income" element={
+            <Income
+              transactions={transactions}
+              addTransaction={addTransaction}
+              editTransaction={editTransaction}
+              deleteTransaction={deleteTransaction}
+              refreshTransaction={refreshTransactions}
+            />
+          } />
         </Route>
       </Routes>
     </>
