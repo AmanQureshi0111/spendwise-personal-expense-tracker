@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom';
 import { ChevronDown, LogOut, User } from 'lucide-react';
 import axios from 'axios';
 
-const BASE_URL="http://localhost:4000/api";
+const BASE_URL="https://spendwise-personal-expense-tracker-cy35.onrender.com/api";
 const getStoredToken = () => localStorage.getItem("token") || sessionStorage.getItem("token");
 
 const Navbar = ({user:propUser,onLogout}) => {

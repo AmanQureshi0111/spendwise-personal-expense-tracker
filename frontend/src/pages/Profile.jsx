@@ -6,7 +6,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import { Eye, EyeOff, Lock, User, X } from 'lucide-react';
 
-const BASE_URL = 'http://localhost:4000/api';
+const BASE_URL = 'https://spendwise-personal-expense-tracker-cy35.onrender.com/api';
 
 Modal.setAppElement('#root');
 // Move PasswordInput component outside of ProfilePage to prevent recreation on every render

@@ -18,7 +18,7 @@ const CATEGORY_ICONS = {
     Savings: <PiggyBank className="w-4 h-4" />,
 };
 
-const API_BASE = "http://localhost:4000/api";
+const API_BASE = "https://spendwise-personal-expense-tracker-cy35.onrender.com/api";
 const getStoredToken = () => localStorage.getItem("token") || sessionStorage.getItem("token");
 
 const filterTransactions = (transactions, frame) => {

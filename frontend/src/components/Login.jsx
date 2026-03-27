@@ -3,7 +3,7 @@ import { loginStyles } from '../assets/dummyStyles';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { User, Mail, Lock, Eye, EyeOff } from 'lucide-react';
-const Login = ({ onLogin, API_URL = "http://localhost:4000" }) => {
+const Login = ({ onLogin, API_URL = "https://spendwise-personal-expense-tracker-cy35.onrender.com" }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);

@@ -37,7 +37,7 @@ import {
 import FinancialCard from '../components/FinancialCard.jsx';
 import GaugeCard from '../components/GaugeCard.jsx';
 import AddTransactionModal from '../components/Add.jsx';
-const API_BASE = "http://localhost:4000/api";
+const API_BASE = "https://spendwise-personal-expense-tracker-cy35.onrender.com/api";
 const PieChartIcon = BarChart2;
 const ProfitIcon = TrendingUp;
 
